@@ -1,0 +1,38 @@
+{%extends 'layout.html'%}
+{% import '_macro.html' as macros %}
+
+{%block content%}
+<div class="mdui-container-fluid">
+    <div class="mdui-typo">
+      <h1>系统安装 <small>绑定账号</small></h1>
+    </div>
+
+    <div class="mdui-typo">
+        <h4>步骤1：绑定账号，获取code</h4>
+    </div>
+      
+    <div class="mdui-typo">
+        <h4>步骤2：输入code，结束绑定</h4>
+    <a href="{{login_url}}" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-float-right" target="_blank">1. 绑定账号</a>
+     <form action="{{url_for('admin.install')}}" method="post">
+         <div class="mdui-textfield mdui-textfield-floating-label">
+             <i class="mdui-icon material-icons">https</i>
+             <label class="mdui-textfield-label">code</label>
+             <input type="text" type="text" class="mdui-textfield-input" name="code" required"/>
+             <div class="mdui-textfield-error">code不能为空</div>
+         </div>
+         <input type="hidden" name="step" value="2">
+         <input type="hidden" name="client_id" value="{{client_id}}">
+         <input type="hidden" name="client_secret" value="{{client_secret}}">
+         <br>
+         <br>
+      <button class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-float-right" type="submit">2. 结束绑定</button>
+     </form>
+    </div>
+     <div class="mdui-typo">
+        <h4>示例，如何操作</h4>
+    <img src="https://i.loli.net/2018/09/23/5ba7342b84ed5.png">
+    </div>                                                                              
+                                                                                                 
+</div>
+{%endblock content%}

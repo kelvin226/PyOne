@@ -28,11 +28,38 @@
         </a>
     </div>
 </div> -->
-<a class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-fab-fixed_left" href="{% if pagination.has_prev %}{{ url_for(endpoint,page = pagination.page - 1, **kwargs) }}{% else %}#{% endif %}">
+<a class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-fab-fixed_left" href="{% if pagination.has_prev %}{{ url_for(endpoint,page = pagination.page - 1, **kwargs) |safe}}{% else %}#{% endif %}">
     <i class="mdui-icon material-icons">&#xe314;</i>
 </a>
-<a class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-fab-fixed" href="{% if pagination.has_next %}{{ url_for(endpoint,page = pagination.page + 1, **kwargs) }}{% else %}#{% endif %}">
+<a class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-fab-fixed" href="{% if pagination.has_next %}{{ url_for(endpoint,page = pagination.page + 1, **kwargs) |safe}}{% else %}#{% endif %}">
     <i class="mdui-icon material-icons">&#xe5cc;</i>
 </a>
 
+{% endmacro %}
+
+{% macro Arraw(name,cur_type,sortby,order) %}
+    <a href="{% if order=='asc' %}{{url_for('.index',sortby=cur_type,order='desc',**kwargs)|safe}}{%else%}{{url_for('.index',sortby=cur_type,order='asc',**kwargs)|safe}}{%endif%}">
+    {{ name }}
+    {% if cur_type==sortby %}
+        {% if order=='asc' %}
+            <i class="mdui-icon material-icons">arrow_upward</i>
+        {% else %}
+            <i class="mdui-icon material-icons">arrow_downward</i>
+        {% endif %}
+    {% endif %}
+    </a>
+{% endmacro %}
+
+
+{% macro Admin_Arraw(name,cur_type,sortby,order) %}
+    <a href="{% if order=='asc' %}{{url_for('admin.manage',sortby=cur_type,order='desc',**kwargs)|safe}}{%else%}{{url_for('admin.manage',sortby=cur_type,order='asc',**kwargs)|safe}}{%endif%}">
+    {{ name }}
+    {% if cur_type==sortby %}
+        {% if order=='asc' %}
+            <i class="mdui-icon material-icons">arrow_upward</i>
+        {% else %}
+            <i class="mdui-icon material-icons">arrow_downward</i>
+        {% endif %}
+    {% endif %}
+    </a>
 {% endmacro %}

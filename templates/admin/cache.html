@@ -1,0 +1,57 @@
+{%extends 'admin/layout.html'%} {%block content%}
+<style type="text/css">
+#output {
+  background-color: #000000;
+    color: #fff;
+    font-family: monospace, fixed;
+    font-size: 15px;
+    line-height: 18px;
+}
+</style>
+<div class="mdui-container-fluid">
+    <div class="mdui-typo">
+        <h1> 更新缓存 <small>更新本地文件列表</small></h1>
+    </div>
+    <div class="mdui-row">
+      <form action="" method="post">
+        <div class="mdui-col-xs-10">
+            <div class="mdui-textfield">
+                <label class="mdui-textfield-label">更新目录 <small>默认为/，即更新全部文件；更新特定目录，比如91porn，则设置为91porn</small></label>
+                <input name="dir" class="mdui-textfield-input" type="text" value="{%if dir%}{{dir}}{%else%}/{%endif%}"/>
+            </div>
+        </div>
+          <div class="mdui-col-xs-2" style="padding-top: 34px;">
+              <button type="submit" name="refresh" class="mdui-btn mdui-btn-block mdui-color-green-600 mdui-ripple">
+                    <i class="mdui-icon material-icons">&#xe028;</i>
+                    更新缓存
+              </button>
+          </div>
+          <br><br><br>
+          <center class="mdui-typo-headline-opacity mdui-text-color-green"><?php echo $message;?></center>
+          <br><br><br>
+      </form>
+    </div>
+
+    <hr>
+      <div class="mdui-textfield">
+          <textarea class="mdui-textfield-input" rows="20" placeholder="进度" id="output"></textarea>
+      </div>
+</div>
+<script>
+  {%if dir%}
+  var source = new EventSource("{{url_for('admin.web_console',dir=dir,action=action)|safe}}");
+  source.onmessage = function(event) {
+    if(event.data=='end'){
+        source.close();
+    }
+    else{
+        document.getElementById("output").innerHTML += event.data + "\n";
+        document.getElementById("output").scrollTop = document.getElementById('output').scrollHeight;
+    }
+  }
+  source.addEventListener('error',function(e){
+      source.close();
+  })
+  {%endif%}
+</script>
+{%endblock content%}

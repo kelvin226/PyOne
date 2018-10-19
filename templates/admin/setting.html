@@ -1,0 +1,46 @@
+{%extends 'admin/layout.html'%}
+
+{%block content%}
+<div class="mdui-container-fluid">
+
+    <div class="mdui-typo">
+      <h1> 基本设置 <small>设置PyOne基本参数</small></h1>
+    </div>
+    <form action="{{url_for('admin.setting')}}" method="POST">
+        <div class="mdui-textfield">
+          <h4>网站名称</h4>
+          <input class="mdui-textfield-input" type="text" name="title" value="{{title}}"/>
+        </div>
+
+        <div class="mdui-textfield">
+          <h4>分享目录<small>例：仅共享share目录 /share</small></h4>
+          <input class="mdui-textfield-input" type="text" name="share_path" value="{{share_path}}"/>
+        </div>
+
+        <div class="mdui-textfield">
+          <h4>缓存过期时间(秒)</h4>
+          <input class="mdui-textfield-input" type="text" name="downloadUrl_timeout" value="{{downloadUrl_timeout}}"/>
+        </div>
+
+        <div class="mdui-textfield">
+          <h4>防盗链设置（不限制，则设置：no-referrer；仅限3pp.me调用，则设置：3pp.me；可调用域名通过英文逗号分隔）</h4>
+          <input class="mdui-textfield-input" type="text" name="allow_site" value="{{allow_site}}"/>
+        </div>
+
+        <div class="mdui-textfield">
+          <h4>统计代码</h4>
+          <input class="mdui-textfield-input" type="text" name="tj_code" value="{{tj_code}}"/>
+        </div>
+
+        <div class="mdui-textfield">
+          <h4>修改后台密码（如果不修改，则无需输入）</h4>
+          <input class="mdui-textfield-input" type="password" name="password1" placeholder="请输入新密码" />
+          <input class="mdui-textfield-input" type="password" name="password2" placeholder="请再次输入新密码" />
+        </div>
+
+       <button type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-float-right">
+        <i class="mdui-icon material-icons">&#xe161;</i> 保存
+       </button>
+    </form>
+</div>
+{%endblock content%}
